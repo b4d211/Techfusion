@@ -1,0 +1,55 @@
+.poppins {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+.hero {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  background: linear-gradient(145deg,rgba(18, 23, 99, 1) 0%, rgba(37, 47, 201, 1) 100%);
+  color: #ffffff;
+  text-align: center;
+  padding: 20px;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .conteudo {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    animation: fadeInUp 1s ease-in-out forwards;
+  }
+
+  .titulo {
+    font-size: 48px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 200;
+  }
+
+  .descricao {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: 100;
+    font-family: "Poppins", sans-serif;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

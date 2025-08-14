@@ -1,0 +1,47 @@
+.card{
+    background-color: #000663;
+}
+.bannerTexto{
+    display: flex;
+     position: relative;
+     align-items: center;
+     justify-content: center;
+      height: 350px;
+    img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    }
+    p{
+        position: absolute;
+        top: 50%;
+        color: white;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 50px;
+        font-weight: 500;
+    }
+    .id{
+                background-color: #0080FF;
+    }
+
+}
+.categoriaTitulo{
+    justify-content: space-around;
+    align-items: center;
+    display: flex;
+    color: #121763;
+    margin-top: 30px;
+    background: url();
+    h1{
+        font-size: 70px;
+    }
+    a{
+    text-decoration: none;
+    color: white;
+    background-color: #1D25A1;
+
+    }
+}
+
+

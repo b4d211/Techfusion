@@ -1,0 +1,47 @@
+.poppins {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+.secaoRecursos {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.listaRecursos {
+  display: flex;
+  justify-content: space-around;
+  margin-top: -80px;
+  flex-wrap: wrap;
+}
+
+.recurso {
+  background: linear-gradient(145deg,#121763 5%, #0080FF 100%, #0080FF 100%);
+  height: 86px;
+  width: 314px;
+   z-index: 1;
+   /* border: solid white 1px; */
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+
+  p {
+    font-size: 18px;
+     font-family: "Poppins", sans-serif;
+     font-weight: 200;
+    color: #fff;
+  }
+}
+
+.icone {
+  font-size: 40px;
+  color: #fff;
+  width: 100px;
+  padding-left: 15px;
+}
+
