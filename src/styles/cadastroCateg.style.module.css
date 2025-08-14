@@ -1,0 +1,111 @@
+body {
+    background-color: #2290fd;
+}
+
+.containerCadastro {
+    display: flex;
+    flex-direction: row;
+    padding: 60px;
+    gap: 30px;
+    justify-content: center;
+    background-color: #ffff;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 600px;
+        height: 100%;
+
+
+        h2 {
+            color: #121763;
+            font-size: 45px;
+            font-weight: 500;
+            padding: 20px 0px;
+        }
+
+        .nomeDiv {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .descDiv {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            margin-bottom: 15px;
+        }
+
+        .label {
+            font-size: 25px;
+            color: #121763;
+        }
+
+        .nome {
+            width: 80%;
+            background-color: #eaeaea;
+            border: none;
+            text-decoration: none;
+            outline: none;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .area {
+            width: 80%;
+            max-width: 80%;
+            border: 0;
+            background-color: #eaeaea;
+            border-radius: 6px;
+            padding: 5px;
+            outline: none;
+        }
+
+        .botoes {
+            display: flex;
+            flex-direction: row;
+            gap: 25px;
+            margin-top: 30px;
+
+            .botaoCancelar {
+                background-color: #121763;
+                color: white;
+                padding: 8px;
+                border: 0;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 20px;
+                transition: all 0.5s;
+
+                &:hover {
+                    transform: scale(1.1);
+
+                }
+            }
+
+            .botaoSalvar {
+                background-color: #529BE4;
+                color: white;
+                padding: 8px;
+                border: 0;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 20px;
+                transition: all 0.5s;
+
+                &:hover {
+                    transform: scale(1.1);
+
+                }   
+            }
+        }
+    }
+}
