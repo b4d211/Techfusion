@@ -59,9 +59,6 @@ export default function Categorias() {
             </div>
             <div className={style.cardDescricao} key={categoria.id}>
               <button onClick={() => deletarCategoria(categoria.id)}> <FaRegTrashAlt size="25px" /> </button>
-
-
-              
               <Link to={`/editar-categoria/${categoria.id}`}>
                 Editar
               </Link>

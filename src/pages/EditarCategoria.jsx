@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Header from "../components/Header";
 
 const api = axios.create({
   baseURL: "http://localhost:3333"
@@ -65,6 +66,7 @@ export default function EditarCategoria() {
 
   return (
     <>
+    <Header />
       <form action="" onSubmit={editarCategoria}>
         <h2>Editar categoria</h2>
         <label htmlFor="nome">nome</label>
@@ -93,7 +95,6 @@ export default function EditarCategoria() {
           <button type="submit" disabled={!isValid} >
             Editar
           </button>
-          <button onClick={()=> deletarCategoria()}>Deletar Categoria</button>
         </div>
       </form>
     </>
