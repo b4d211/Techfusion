@@ -1,0 +1,40 @@
+.rodape {
+  background-color: #fff;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  h1{
+    color: #121763;
+    font-weight: 300;
+  }
+  img{
+    width: 200px;
+  }
+ 
+     p{
+      color: black;
+      }
+  .redesSociais {
+    margin-bottom: 10px;
+
+    a {
+      margin: 0 10px;
+      color: #232CA1;
+      transition: color 0.3s;
+
+      &:hover {
+        color: rgb(33, 86, 185);
+      }
+    } 
+
+    }
+  }
+      .final{
+        display: flex;
+        justify-self: center;
+      a{
+      color: #0080FF;
+      text-decoration: none;
+      margin-left: 6px ;
+      } 
+}

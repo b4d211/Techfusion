@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import Header from '../components/Header'
 import ConsoleBanner from '../images/Banner/ConsoleBanner.png'
+import Rodape from "../components/Rodape";
 import axios from 'axios';
 import style from "../styles/categorias.style.module.css";
 import { useNavigate } from "react-router-dom";
@@ -67,9 +68,10 @@ export default function Categorias() {
               </Link>
             </div>
           </div>
+          
         ))
       )}
-
+        <Rodape />
     </>
   );
 }
