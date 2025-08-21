@@ -8,79 +8,57 @@ import Header from "../components/Header";
 
 const api = axios.create({ baseURL: "http://localhost:3333" });
 
-function getError(err) {
-  return {
-    status: err?.response?.status,
-    message:
-      err?.response?.data?.message ||
-      err?.response?.data?.error ||
-      err?.message ||
-      "Erro inesperado.",
-  };
-}
-
 export default function EditarCategoria() {
+  const [nome, setNome] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [erro, setErro] = useState(null);
+  const [salvando, setSalvando] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
+
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [nome, setNome] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [imageFile, setImageFile] = useState(null);
-  const [erro, setErro] = useState(null);
-  const [carregando, setCarregando] = useState(true);
-  const [salvando, setSalvando] = useState(false);
-  const [removendo, setRemovendo] = useState(false);
-
-  const isValid = nome.trim().length >= 3;
-
-  useEffect(() => {
-    let ativo = true;
-    (async () => {
-      try {
-        const res = await api.get(`/categorias/${id}`);
-        if (!ativo) return;
-        setNome(res.data.name ?? "");
-        setDescricao(res.data.description ?? "");
-        setErro(null);
-      } catch (err) {
-        if (!ativo) return;
-        setErro(getError(err));
-      } finally {
-        if (ativo) setCarregando(false);
-      }
-    })();
-    return () => { ativo = false; };
-  }, [id]);
-
   async function editarCategoria(e) {
     e.preventDefault();
-    if (!isValid) return;
-
     setSalvando(true);
-    setErro(null);
-
     try {
       const formData = new FormData();
-      formData.append("name", nome.trim());
-      formData.append("description", descricao.trim() || "");
-      if (imageFile) formData.append("image", imageFile);
+      formData.append("name", nome);
+      formData.append("description", descricao);
+      if (imageFile) {
+        formData.append("image", imageFile);
+      }
 
-      await api.put(`/categorias/${id}`, formData, {
+      await api.patch(`/categorias/${id}`, formData, {
         headers: { "Content-Type": "multipart/form-data" }
       });
 
       navigate("/categorias");
     } catch (err) {
-      setErro(getError(err));
+      setErro(err);
+      console.error(err);
     } finally {
       setSalvando(false);
     }
   }
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await api.get(`/categorias/${id}`);
+        setNome(res.data.name);
+        setDescricao(res.data.description || "");
+      } catch (err) {
+        setErro(err);
+      }
+    })();
+  }, [id]);
 
+  const isValid = nome.trim() !== "" && descricao.trim() !== "";
 
-  if (carregando) return <p>Carregando...</p>;
-  if (erro?.status === 404) return <h1>Categoria não encontrada</h1>;
+  if (erro?.response?.status === 404) {
+    return <h1>Categoria não encontrada</h1>;
+  }
 
   return (
     <>
@@ -141,11 +119,9 @@ export default function EditarCategoria() {
                 {salvando ? "Salvando..." : "Salvar"}
                 <LuSave color="white" />
               </button>
-
-
             </div>
 
-            {erro && <p style={{ color: "red" }}>{erro.message}</p>}
+            {erro && <p style={{ color: "red" }}>{erro.message || "Erro ao processar"}</p>}
           </form>
         </div>
       </div>

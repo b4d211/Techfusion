@@ -52,17 +52,27 @@ export default function CategoryControllers(prisma) {
 
 
     // PUT /categorias/:id
-    // PATCH /categorias/:id
-    update: async (req, res) => {
-      const id = Number(req.params.id);
-      try {
-        const data = req.body;
-        const updated = await service.update(id, data);
-        res.json(updated);
-      } catch (err) {
-        res.status(400).json({ error: "Erro ao atualizar categoria", detail: err.message });
-      }
-    },
+   // PUT/PATCH /categorias/:id
+update: async (req, res) => {
+  const id = Number(req.params.id);
+  try {
+    const data = req.body;
+
+    // Se tiver imagem enviada pelo multer
+    if (req.file) {
+      data.imageUrl = `/uploads/${req.file.filename}`;
+    }
+
+    const updated = await service.update(id, data);
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({
+      error: "Erro ao atualizar categoria",
+      detail: err.message,
+    });
+  }
+},
+
 
     // DELETE /categorias/:id
     remove: async (req, res) => {

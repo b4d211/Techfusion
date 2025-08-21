@@ -16,12 +16,13 @@ export default function categoryServices(prisma) {
         data: { name, description, imageUrl },
       }),
 
-    // atualiza uma categoria existente
-    update: (id, { name, description, imageUrl }) =>
-      prisma.category.update({
-        where: { id: Number(id) },
-        data: { name, description, imageUrl },
-      }),
+   // atualiza uma categoria existente
+update: (id, data) =>
+  prisma.category.update({
+    where: { id: Number(id) },
+    data,
+  }),
+
 
     // deleta uma categoria
     remove: (id) =>
