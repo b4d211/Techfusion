@@ -1,68 +1,47 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from '../components/Header';
-import style from '../styles/cadatrarPro.module.css'
-import imageCadastro from '../images/adicionarcategoria.png'
+import Header from "../components/Header";
+import style from "../styles/cadastroCateg.module.css";
+import imageCadastro from "../images/adicionarcategoria.png";
 import { LuSave } from "react-icons/lu";
 
 const api = axios.create({
-  baseURL: "http://localhost:3333"
+  baseURL: "http://localhost:3333",
 });
 
-export default function CadastroProduto() {
+export default function CadastroCategoria() {
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [preco, setPreco] = useState("");
-  const [quantidade, setQuantidade] = useState(0);
   const [imagemFile, setImagemFile] = useState(null);
-  const [categoriaId, setCategoriaId] = useState("");
-  const [categorias, setCategorias] = useState([]);
   const [erro, setErro] = useState("");
   const [uploading, setUploading] = useState(false);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    api.get("/categorias")
-      .then(res => setCategorias(res.data))
-      .catch(err => console.error("Erro ao buscar categorias:", err));
-  }, []);
-
-  const isValid =
-    nome.trim() !== "" &&
-    descricao.trim() !== "" &&
-    preco !== "" &&
-    imagemFile !== null &&
-    !isNaN(parseFloat(preco));
+  const isValid = nome.trim() !== "" && descricao.trim() !== "";
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (!imagemFile) {
-      setErro("Selecione uma imagem antes de salvar.");
-      return;
-    }
-
     const formData = new FormData();
-    formData.append("image", imagemFile); // precisa ser "image" por causa do upload.single("image")
     formData.append("name", nome);
     formData.append("description", descricao);
-    formData.append("price", preco);
-    formData.append("quantity", quantidade);
-    formData.append("categoryId", categoriaId || "");
+    if (imagemFile) {
+      formData.append("image", imagemFile); // nome do campo deve ser "image"
+    }
 
     try {
       setUploading(true);
-      await api.post("/produtos", formData, {
+      await api.post("/categorias", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      navigate("/produtos");
+      navigate("/categorias");
     } catch (err) {
-      console.error("Erro ao salvar produto:", err);
-      setErro("Erro ao salvar produto.");
+      console.error("Erro ao salvar categoria:", err);
+      setErro("Erro ao salvar categoria.");
     } finally {
       setUploading(false);
     }
@@ -75,12 +54,12 @@ export default function CadastroProduto() {
         <div className={style.containerCadastro}>
           <img src={imageCadastro} alt="" />
           <form onSubmit={handleSubmit}>
-            <h2>Cadastro de Produto</h2>
+            <h2>Cadastro de Categoria</h2>
 
             <div className={style.nomeDiv}>
               <label className={style.label} htmlFor="nome">Nome</label>
               <input
-              className={style.nome}
+                className={style.nome}
                 type="text"
                 id="nome"
                 value={nome}
@@ -92,7 +71,7 @@ export default function CadastroProduto() {
             <div className={style.descDiv}>
               <label className={style.label} htmlFor="descricao">Descrição</label>
               <textarea
-              className={style.area}
+                className={style.area}
                 id="descricao"
                 value={descricao}
                 onChange={(e) => setDescricao(e.target.value)}
@@ -100,74 +79,36 @@ export default function CadastroProduto() {
               />
             </div>
 
-            <div className={style.caixaMae}>
-              <div className={style.precoDiv}>
-                <label className={style.label} htmlFor="preco">Preço</label>
-                <input
-                className={style.preco}
-                  type="number"
-                  step="0.01"
-                  id="preco"
-                  value={preco}
-                  onChange={(e) => setPreco(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className={style.qunatidadeDiv}>
-                <label className={style.label} htmlFor="quantidade">Quantidade</label>
-                <input
-                  className={style.qunat}
-                  type="number"
-                  id="quantidade"
-                  min="0"
-                  value={quantidade}
-                  onChange={(e) => setQuantidade(e.target.value)}
-                />
-              </div>
-              <div className={style.categoriaDiv}>
-                <label className={style.label} htmlFor="categoria">Categoria</label>
-                <select
-                className={style.categ}
-                  id="categoria"
-                  value={categoriaId}
-                  onChange={(e) => setCategoriaId(e.target.value)}
-                >
-                  <option value="">Selecione uma categoria</option>
-                  {categorias.map(categoria => (
-                    <option key={categoria.id} value={categoria.id}>
-                      {categoria.name}
-                    </option>
-                  ))}
-                </select>
-
-              </div>
-            </div>
-
             <div className={style.imageDiv}>
-              <label className={style.label} htmlFor="imagem">Imagem do Produto</label>
+              <label className={style.label} htmlFor="imagem">Imagem da Categoria</label>
               <input
-              className={style.imagem}
+                className={style.imagem}
                 type="file"
                 id="imagem"
                 accept="image/*"
                 onChange={(e) => setImagemFile(e.target.files[0])}
-                required
               />
             </div>
 
-
             <div className={style.botoes}>
-              <button type="button" onClick={() => navigate(-1)} className={style.botaoCancelar}>
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className={style.botaoCancelar}
+              >
                 Cancelar
               </button>
-              <button type="submit" disabled={!isValid || uploading} className={style.botaoSalvar}>
+              <button
+                type="submit"
+                disabled={!isValid || uploading}
+                className={style.botaoSalvar}
+              >
                 {uploading ? "Salvando..." : "Salvar"}
                 <LuSave color="white" />
               </button>
             </div>
 
-            {erro && <p style={{ color: 'red' }}>{erro}</p>}
+            {erro && <p style={{ color: "red" }}>{erro}</p>}
           </form>
         </div>
       </div>

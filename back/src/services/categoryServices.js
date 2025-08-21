@@ -11,16 +11,16 @@ export default function categoryServices(prisma) {
       }),
 
     // cria uma nova categoria
-    create: ({ name, description }) =>
+    create: ({ name, description, imageUrl }) =>
       prisma.category.create({
-        data: { name, description },
+        data: { name, description, imageUrl },
       }),
 
     // atualiza uma categoria existente
-    update: (id, { name, description }) =>
+    update: (id, { name, description, imageUrl }) =>
       prisma.category.update({
         where: { id: Number(id) },
-        data: { name, description },
+        data: { name, description, imageUrl },
       }),
 
     // deleta uma categoria

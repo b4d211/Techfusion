@@ -29,15 +29,27 @@ export default function CategoryControllers(prisma) {
     },
 
     // POST /categorias
+    // POST /categorias
     create: async (req, res) => {
       try {
         const data = req.body;
+
+        // Se tiver imagem enviada pelo multer
+        if (req.file) {
+          data.imageUrl = `/uploads/${req.file.filename}`; // salva caminho no banco
+        }
+
         const newCategory = await service.create(data);
         res.status(201).json(newCategory);
       } catch (err) {
-        res.status(400).json({ error: "Erro ao criar categoria", detail: err.message });
+        res.status(400).json({
+          error: "Erro ao criar categoria",
+          detail: err.message,
+        });
       }
     },
+
+
 
     // PUT /categorias/:id
     // PATCH /categorias/:id

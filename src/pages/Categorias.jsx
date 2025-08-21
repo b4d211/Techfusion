@@ -7,14 +7,18 @@ import axios from 'axios';
 import style from "../styles/categorias.style.module.css";
 import { useNavigate } from "react-router-dom";
 import { FaRegTrashAlt } from "react-icons/fa";
+
 export default function Categorias() {
   const [categorias, setCategorias] = useState([]);
-  const [busca] = useState('');
+  const [busca, setBusca] = useState('');
   const [erro, setErro] = useState("");
-  const navigate = useNavigate()
   const api = axios.create({
     baseURL: "http://localhost:3333"
   })
+
+  console.log(categorias);
+
+
   useEffect(() => {
     api.get("/categorias")
       .then(res => setCategorias(res.data))
@@ -28,18 +32,16 @@ export default function Categorias() {
         .includes(busca.toLowerCase())
     )
     : categorias;
-
   async function deletarCategoria(id) {
     if (!window.confirm
       ("Tem certeza que deseja excluir esta categoria?")) return;
     try {
-      await api.delete(`/categorias/${id}`)
+      await api.delete(`/categorias/${ id }`)
       navigate("/categorias")
     } catch (err) {
       setErro(err.message)
     }
   }
-
   return (
     <>
       <Header />
@@ -55,7 +57,7 @@ export default function Categorias() {
         categoriasFiltradas.map(categoria => (
           <div className={style.card}>
             <div className={style.bannerTexto}>
-              <img src={categoria.imagem} alt="" />
+              <img src={`http://localhost:3333${categoria.imageUrl}`} alt="" />
               <p>{categoria.name}</p>
             </div>
             <div className={style.cardDescricao} key={categoria.id}>
@@ -68,10 +70,10 @@ export default function Categorias() {
               </Link>
             </div>
           </div>
-          
+
         ))
       )}
-        <Rodape />
+      <Rodape />
     </>
   );
 }
