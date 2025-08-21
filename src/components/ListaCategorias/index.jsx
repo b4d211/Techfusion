@@ -2,7 +2,7 @@ import React from 'react';
 import style from './style.module.css';
 import { Link } from "react-router-dom";
 import ConsoleCateg from "../../images/ConsoleCateg.png"
-import ConsoleCateg2 from "../../images/ConsoleCateg2.png"
+
 
 export default function Hero() {
   return (
@@ -25,7 +25,7 @@ export default function Hero() {
           <li>Lançamentos</li>
           <Link to="/produtos">Ver Produtos</Link>
         </div>
-        <img src={ConsoleCateg2} alt="" />
+        <img src="" alt="" />
       </div>
       <div className={style.container}>
         <img src={ConsoleCateg} alt="" />
@@ -45,7 +45,7 @@ export default function Hero() {
           <li>Lançamentos</li>
           <Link to="/produtos">Ver Produtos</Link>
         </div>
-        <img src={ConsoleCateg2} alt="" />
+        <img src="" alt="" />
       </div>
       <div className={style.container}>
         <img src={ConsoleCateg} alt="" />
@@ -65,7 +65,7 @@ export default function Hero() {
           <li>Lançamentos</li>
           <Link to="/produtos">Ver Produtos</Link>
         </div>
-        <img src={ConsoleCateg2} alt="" />
+        <img src="" alt="" />
       </div>
     </>
   );
