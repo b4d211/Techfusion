@@ -1,5 +1,5 @@
 import style from '../styles/editarCategoria.module.css';
-import imageEditar from '../images/editarcategoria.png';
+import imageEditar from '../images/fotoanimada.jpg';
 import { LuSave } from "react-icons/lu";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -87,7 +87,7 @@ export default function EditarCategoria() {
       <Header />
       <div className={style.containerTudo}>
         <div className={style.containerEditar}>
-          <img src={imageEditar} alt="" />
+          <img className={style.imagem} src={imageEditar} alt="" />
           <form onSubmit={editarCategoria}>
             <h2>Editar categoria</h2>
 

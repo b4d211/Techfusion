@@ -2,8 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
-import pngCadastro from "../images/adicionarcategoria.png";
 import style from "../styles/cadastroCateg.module.css";
+import imageCadastro from "../images/adicionarcategoria.png";
 import { LuSave } from "react-icons/lu";
 
 const api = axios.create({
@@ -13,54 +13,37 @@ const api = axios.create({
 export default function CadastroCategoria() {
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [image, setImage] = useState(null);
+  const [imagemFile, setImagemFile] = useState(null);
   const [erro, setErro] = useState("");
-  const [salvando, setSalvando] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const navigate = useNavigate();
 
-  const isValid = nome.trim().length >= 3;
+  const isValid = nome.trim() !== "" && descricao.trim() !== "";
 
-  // Função para salvar categoria
   async function handleSubmit(e) {
     e.preventDefault();
-    setErro("");
-    setSalvando(true);
+
+    const formData = new FormData();
+    formData.append("name", nome);
+    formData.append("description", descricao);
+    if (imagemFile) {
+      formData.append("image", imagemFile); // nome do campo deve ser "image"
+    }
 
     try {
-      const formData = new FormData();
-      formData.append("name", nome.trim());
-      formData.append("description", descricao.trim()); // sempre string
-      if (image) {
-        formData.append("image", image);
-      }
-
-      await api.post("/categorias", formData);
-
-      // reseta os campos
-      setNome("");
-      setDescricao("");
-      setImage(null);
-
+      setUploading(true);
+      await api.post("/categorias", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       navigate("/categorias");
     } catch (err) {
-      const msg =
-        err?.response?.data?.message ||
-        err?.response?.data?.error ||
-        err?.message ||
-        "Erro ao salvar categoria.";
-      setErro(msg);
-      console.error(err);
+      console.error("Erro ao salvar categoria:", err);
+      setErro("Erro ao salvar categoria.");
     } finally {
-      setSalvando(false);
-    }
-  }
-
-  // Atualiza imagem
-  function handleImageChange(e) {
-    const file = e.target.files[0];
-    if (file) {
-      setImage(file);
+      setUploading(false);
     }
   }
 
@@ -69,70 +52,63 @@ export default function CadastroCategoria() {
       <Header />
       <div className={style.containerTudo}>
         <div className={style.containerCadastro}>
-          <img src={pngCadastro} alt="Imagem ilustrativa" />
-
+          <img src={imageCadastro} alt="" />
           <form onSubmit={handleSubmit}>
-            <h2>Cadastro de categoria</h2>
+            <h2>Cadastro de Categoria</h2>
 
-            {/* Campo Nome */}
             <div className={style.nomeDiv}>
               <label className={style.label} htmlFor="nome">Nome</label>
               <input
+                className={style.nome}
                 type="text"
                 id="nome"
-                placeholder="Digite um nome de categoria"
-                required
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
-                className={style.nome}
+                required
               />
             </div>
 
-            {/* Campo Descrição */}
             <div className={style.descDiv}>
               <label className={style.label} htmlFor="descricao">Descrição</label>
               <textarea
                 className={style.area}
-                name="descricao"
                 id="descricao"
                 value={descricao}
-                placeholder="Digite uma descrição"
                 onChange={(e) => setDescricao(e.target.value)}
-              />
-
-              {/* Upload de imagem */}
-              <label htmlFor="image">Imagem (opcional)</label>
-              <input
-                type="file"
-                id="image"
-                accept="image/*"
-                onChange={handleImageChange}
+                required
               />
             </div>
 
-            {/* Mensagem de erro */}
-            {erro && <p className={style.erro}>{erro}</p>}
+            <div className={style.imageDiv}>
+              <label className={style.label} htmlFor="imagem">Imagem da Categoria</label>
+              <input
+                className={style.imagem}
+                type="file"
+                id="imagem"
+                accept="image/*"
+                onChange={(e) => setImagemFile(e.target.files[0])}
+              />
+            </div>
 
-            {/* Botões */}
             <div className={style.botoes}>
               <button
                 type="button"
-                className={style.botaoCancelar}
                 onClick={() => navigate(-1)}
+                className={style.botaoCancelar}
               >
                 Cancelar
               </button>
-
               <button
                 type="submit"
-                disabled={!isValid}
+                disabled={!isValid || uploading}
                 className={style.botaoSalvar}
               >
-                Salvar
-                {/* {salvando ? "Salvando..." : "Salvar"} */}
+                {uploading ? "Salvando..." : "Salvar"}
                 <LuSave color="white" />
               </button>
             </div>
+
+            {erro && <p style={{ color: "red" }}>{erro}</p>}
           </form>
         </div>
       </div>

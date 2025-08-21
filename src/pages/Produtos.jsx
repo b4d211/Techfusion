@@ -31,10 +31,10 @@ export default function Produtos() {
       <Header />
       <div className={style.caixaTop}>
         <h1 className={style.tituloPage}>Produtos</h1>
-      <Link className={style.botaoAddProduto} to="/cadastrar-produto">
-        Adicionar um produto
-        <FaPlus />
-      </Link>
+        <Link className={style.botaoAddProduto} to="/cadastrar-produto">
+          Adicionar um produto
+          <FaPlus />
+        </Link>
       </div>
 
       {/* <input
@@ -79,7 +79,7 @@ export default function Produtos() {
         </div>
       </div>
 
-<Rodape/>
+      <Rodape />
     </div>
   );
 }

@@ -8,6 +8,12 @@
     padding: 60px;
     justify-content: center;
 
+    .imagem {
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+
+
+    }
 
     form {
         display: flex;
