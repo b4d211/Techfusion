@@ -72,14 +72,21 @@
     }
 
     .ver {
-        background-color: #0080FF;
+        background-color: #0080FF;  
+        transition: all 0.5s;
+        &:hover{
+            transform: scale(1.02);
+        }
     }
-
-    button {
+    .delet {
         background-color: red;
         color: white;
         padding: 10px 25px;
-        border-radius: 30px;
+        border-radius: 12px;
         border: none;
+           transition: all 0.5s;
+        &:hover{
+            transform: scale(1.03);
+        }
     }
 }

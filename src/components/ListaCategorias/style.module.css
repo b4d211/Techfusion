@@ -5,7 +5,8 @@
 
     img {
         clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
-        width: 125%;
+        object-fit: contain;
+        width: 845px;
     }
 
     .texto {
@@ -13,30 +14,46 @@
         justify-content: center;
         display: flex;
         width: 100%;
-        text-align: center;
+
+        .descricao {
+            padding-left: 40%;
+
+            li {
+                font-weight: 400;
+                font-size: 16px;
+                align-self: center;
+            }
+        }
+
 
         h1 {
-            font-size: 40px;
+            font-size: 35px;
             font-weight: 200;
             color: #121763;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
+            align-self: center;
         }
 
-        li {
-            font-weight: 400;
-        }
+
 
         a {
-            margin-top: 60px;
+            margin-top: 15px;
+            text-align: center;
             text-decoration: none;
             background-color: #0080FF;
             border-radius: 8px;
             color: white;
             justify-self: center;
             align-self: center;
-            width: 300px;
-            font-size: 40px;
+            width: 200px;
+            padding: 6px;
+            font-size: 25px;
             font-weight: 200;
+            transition: 0.3s;
+
+            &:hover {
+                background-color: #121763;
+            }
         }
     }
 }
@@ -45,11 +62,14 @@
     display: flex;
     height: 100%;
     background-color: white;
+    flex-direction: row-reverse;
 
-    img{
-         width: 125%;
+    img {
+        object-fit: contain;
+        width: 845px;
         clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%);
     }
+
 
 
     .texto2 {
@@ -57,30 +77,44 @@
         justify-content: center;
         display: flex;
         width: 100%;
-        text-align: center;
 
-        h1 {
-            font-size: 40px;
-            font-weight: 200;
-            color: #121763;
-            margin-bottom: 30px;
+
+        .descricao2 {
+            padding-left: 40%;
+
+            li {
+                font-weight: 400;
+                font-size: 16px;
+                align-self: center;
+            }
         }
 
-        li {
-            font-weight: 400;
+        h1 {
+            font-size: 35px;
+            font-weight: 200;
+            color: #121763;
+            margin-bottom: 10px;
+            align-self: center;
         }
 
         a {
-            margin-top: 60px;
+            margin-top: 15px;
             text-decoration: none;
             background-color: #0080FF;
             border-radius: 8px;
             color: white;
+            text-align: center;
             justify-self: center;
             align-self: center;
-            width: 300px;
-            font-size: 40px;
+            width: 200px;
+            padding: 6px;
+            font-size: 25px;
             font-weight: 200;
+            transition: 0.3s;
+
+            &:hover {
+                background-color: #121763;
+            }
         }
     }
 }

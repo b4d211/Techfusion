@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Header from '../components/Header';
 import axios from 'axios';
 import style from '../styles/produtos.module.css';
@@ -8,7 +8,10 @@ import Rodape from '../components/Rodape'
 
 export default function Produtos() {
   const [produtos, setProdutos] = useState([]);
-  const [busca, setBusca] = useState('');
+  const location = useLocation();
+
+  const params = new URLSearchParams(location.search);
+  const busca = params.get("busca") || "";
 
   const api = axios.create({
     baseURL: "http://localhost:3333"
@@ -18,12 +21,12 @@ export default function Produtos() {
     api.get("/produtos")
       .then(res => setProdutos(res.data))
       .catch(err => console.log("Erro ao buscar os produtos", err));
-  }, [api]);
+  }, []);
 
-  const produtosFiltrados = busca.trim()
+  const produtosFiltrados = busca.length >= 3
     ? produtos.filter(produto =>
-      produto.name.toLowerCase().includes(busca.toLowerCase())
-    )
+        produto.name.toLowerCase().includes(busca.toLowerCase())
+      )
     : produtos;
 
   return (
@@ -37,18 +40,10 @@ export default function Produtos() {
         </Link>
       </div>
 
-      {/* <input
-        type="text"
-        placeholder='Buscar produto'
-        value={busca}
-        onChange={(e) => setBusca(e.target.value)}
-      /> */}
-
-
       <div className={style.containerProdutos}>
         <div className={style.containerProdutosGrid}>
           {produtosFiltrados.length === 0 ? (
-            <p>Nenhum produto foi cadastrado.</p>
+            <p>{busca.length >= 3 ? "Nenhum produto encontrado." : "Digite pelo menos 3 letras para buscar."}</p>
           ) : (
             produtosFiltrados.map(produto => (
               <div className={style.produto} key={produto.id}>
@@ -58,18 +53,14 @@ export default function Produtos() {
                   width={100}
                 />
                 <div className={style.infoProduto}>
-                  {/* <p>ID: {produto.id}</p> */}
                   <p className={style.nomeProduto}> {produto.name}</p>
                   <p className={style.categProduto}> {produto.category?.name || 'Sem categoria'}</p>
                   <p className={style.descProduto}> {produto.description}</p>
                   <div className={style.infoPreco}>
                     <p className={style.preco}> R$ {produto.price.toFixed(2)}</p>
-                    <p className={style.quantidadeProduto}><span>Disponiveis:</span> {produto.quantity}</p>
+                    <p className={style.quantidadeProduto}><span>Disponíveis:</span> {produto.quantity}</p>
                   </div>
                 </div>
-
-
-
                 <Link className={style.editar} to={`/editar-produto/${produto.id}`}>
                   Editar
                 </Link>

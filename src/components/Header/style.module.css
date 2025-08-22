@@ -1,67 +1,103 @@
 .poppins {
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  font-style: normal;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
 }
-header{
+
+header {
     padding-top: 30px;
     padding-left: 30px;
-    padding-bottom:30px;
+    padding-bottom: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(145deg,rgba(18, 23, 99, 1) 29%, rgba(37, 47, 201, 1) 100%);
+    background: linear-gradient(145deg, rgba(18, 23, 99, 1) 29%, rgba(37, 47, 201, 1) 100%);
     width: 100%;
-    h1{
-    color: white;
-    font-family: "Poppins", sans-serif;
-    font-weight: 100;
-    font-size: 40px;
-}  
+
+    h1 {
+        color: white;
+        font-family: "Poppins", sans-serif;
+        font-weight: 100;
+        font-size: 40px;
+    }
 }
-.logo{
+
+.logo {
     display: flex;
     align-items: center;
     gap: 10px;
-    img{
+
+    img {
         width: 70px;
     }
 }
-.Links{
+
+
+.Link {
+    color: white;
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s ease-in-out;
+}
+
+.Link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background-color: white;
+    /* cor da linha */
+    transition: width 0.3s ease-in-out;
+}
+
+.Link:hover::after {
+    width: 100%;
+}
+
+.Links {
     flex-direction: row;
     gap: 30px;
     display: flex;
 }
-.Link{
+
+.Link {
     color: white;
     text-decoration: none;
     font-family: "Poppins", sans-serif;
     font-size: 20px;
     font-weight: 300;
 }
-.busca{
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        background-color: white;
-        padding: 10px 8px;
-        border-radius: 3px;
-        max-width: 302px;
-        margin-right: 60px;
-        width: 100%;
- 
 
-        input{
-            flex: 1;
-            outline: none;
-            background: transparent;
-            font-family: "Poppins", sans-serif;
-            font-weight: 200;
-            border: 0;
-            font-size: 15px;
+.busca {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: white;
+    padding: 10px 8px;
+    border-radius: 3px;
+    max-width: 302px;
+    margin-right: 60px;
+    width: 100%;
+
+
+    input {
+        flex: 1;
+        outline: none;
+        background: transparent;
+        font-family: "Poppins", sans-serif;
+        font-weight: 200;
+        border: 0;
+        font-size: 15px;
+        color: #1D25A1;
+
+        &::placeholder {
             color: #1D25A1;
-            &::placeholder{
-                color: #1D25A1;
-            }
         }
     }
+}

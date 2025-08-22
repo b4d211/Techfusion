@@ -1,0 +1,107 @@
+.secaoCarrossel {
+    background-color: #F0F4F8;
+    h1{
+        color: #121763;
+        text-align: left;
+        font-size: 50px;
+        font-weight: 600;
+        margin-left: 90px;
+    }
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    .tituloSerie {
+        padding: 15px;
+    }
+}
+
+.carrossel {
+
+    display: flex;
+    flex-direction: row;
+    gap: 35px;
+    justify-content: space-between;
+
+
+    .btnmover {
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+    }
+}
+
+.carrosselItens {
+
+
+    padding: 15px;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px;
+    flex: 1;
+    margin: 12px;
+}
+
+.item {
+    gap: 30px;
+    justify-content: space-between;
+    text-align: left;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    width: 411px;
+    height: 600px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+    img {
+        height: 40%;
+        width: 40%;
+        object-fit: contain;
+    }
+
+    .informacaoCarrosel {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 8px 16px;
+        flex: 1;
+    }
+    h3{
+        margin-top: 30px;
+        font-size: 20px;
+        font-weight: 500;
+    }
+        a {
+            display: flex;
+            margin: 0 auto;
+            text-decoration: none;
+            background-color: #0080FF;
+            border-radius: 8px;
+            color: white;
+            justify-content: center;
+            align-self: center;
+            width: 100%;
+            padding: 6px;
+            font-size: 25px;
+            font-weight: 200;
+            transition: 0.3s;
+            text-align: center;
+
+            &:hover {
+                background-color: #121763;
+            }
+        }
+        .preco{
+            font-size: 20px;
+            font-weight: 600;
+            padding: 10px;
+        }
+         p{
+                font-size: 15px;
+            }
+}
+
